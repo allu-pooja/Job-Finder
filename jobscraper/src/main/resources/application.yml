@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: jobscraper
+  config:
+    import: optional:application-secret.yml
