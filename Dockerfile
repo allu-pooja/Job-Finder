@@ -1,34 +1,23 @@
-# ===========================
-# Stage 1: Build the project
-# ===========================
-FROM eclipse-temurin:21-jdk AS build
+# Use OpenJDK 21 base image
+FROM eclipse-temurin:21-jdk-alpine
 
 # Set working directory
 WORKDIR /app
 
-# Copy only the necessary project files
-COPY jobscraper/pom.xml ./jobscraper/
-COPY jobscraper/.mvn ./jobscraper/.mvn
-COPY jobscraper/src ./jobscraper/src
+# Copy the entire project
+COPY jobscraper/ ./jobscraper
 
 # Move into jobscraper folder
 WORKDIR /app/jobscraper
 
-# Make mvnw executable
+# Give permission to mvnw
 RUN chmod +x mvnw
 
+# Build the project
 RUN ./mvnw clean package -DskipTests
 
-FROM eclipse-temurin:21-jdk:alpine
-
-# Set working directory
-WORKDIR /app
-
-# Copy the jar from the build stage
-COPY --from=build /app/jobscraper/target/*.jar app.jar
-
-# Expose Spring Boot default port
+# Expose the port Spring Boot runs on
 EXPOSE 8080
 
-# Run the Spring Boot app
-CMD ["java", "-jar", "app.jar"]
+# Run the app
+CMD ["java", "-jar", "target/jobscraper-0.0.1-SNAPSHOT.jar"]
