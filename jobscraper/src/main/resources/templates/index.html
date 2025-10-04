@@ -21,7 +21,7 @@
 </div>
 
     <!-- Job Form -->
-    <form id="jobForm" action="/fetch" method="POST" class="mb-5">
+    <form id="jobForm" class="mb-5">
         <div class="row g-3">
             <div class="col-md-6">
                 <input id="i-name" name="name" type="text" placeholder="Enter your name" class="form-control" required>
@@ -59,6 +59,43 @@
     </div>
 
 </div>
+
+<script>
+    //AJAX
+  document.getElementById('jobForm').addEventListener('submit', function(e) {
+    e.preventDefault(); //prevent reload
+
+    const name = document.getElementById('i-name').value;
+    const skills = document.getElementById('i-skill').value;
+    const page = 1; 
+
+    document.getElementById('loading').style.display = 'block';
+
+    fetch('/fetch', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept':'text/html'
+        },
+        body: new URLSearchParams({
+            name: name,
+            skills: skills,
+            page: page
+        })
+    })
+    .then(res =>(res.text()))
+    .then(html =>{
+        document.open();
+        document.write(html);
+        document.close();
+    })
+    .catch(err=>{
+        console.error("err");
+        Swal.fire("Oops!","Something went wrong");
+    })
+});
+</script>
+
 
 <script src="/js/main.js"></script>
 </body>

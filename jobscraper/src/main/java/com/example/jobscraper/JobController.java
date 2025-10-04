@@ -27,7 +27,7 @@ public class JobController {
             @RequestParam String skills,
             @RequestParam(defaultValue = "1") int page) {
 
-        List<Job> jobs = service.fetchJobsFromAdzuna(skills,page);
+        List<Job> jobs = service.fetchAllJobs(skills,page);
 
         ModelAndView mv = new ModelAndView("target");
         mv.addObject("name", name);

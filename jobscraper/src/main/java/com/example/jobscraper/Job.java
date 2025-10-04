@@ -1,5 +1,8 @@
 package com.example.jobscraper;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Job {
     
     private String title;
@@ -9,6 +12,10 @@ public class Job {
     private String url;
     private String logoUrl;
 
+
+    public Job(){
+
+    }
     public Job(String title,String company,String location,String salary,String url,String logoUrl){
         this.title=title;
         this.company=company;
@@ -21,19 +28,48 @@ public class Job {
         return title;
     }
 
+    public void setTitle(String title){
+        this.title=title;
+    }
+
     public String getCompany(){
         return company;
     }
+
+    public void setCompany(String company){
+        this.company=company;
+    }
+
+
     public String getLocation(){
         return location;
     }
+
+    public void setLocation(String location){
+        this.location=location;
+    }
+
     public String getSalary(){
         return salary;
     }
+
+    public void setSalary(String salary){
+        this.salary=salary;
+    }
+
     public String getUrl(){
         return url;
     }
+
+    public void setUrl(String url){
+        this.url=url;
+    }
+
     public String getLogoUrl(){
         return logoUrl;
+    }
+
+    public void setLogoUrl(String logoUrl){
+        this.logoUrl=logoUrl;
     }
 }
